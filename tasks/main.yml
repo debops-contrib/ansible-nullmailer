@@ -1,0 +1,49 @@
+---
+- name: Ensure nullmailer is installed
+  apt: name=nullmailer state=installed
+
+- name: "Set nullmailer's mailname"
+  copy: dest='{{item}}' content='{{nullmailer_mailname}}'
+        owner=root group=mail mode=0644
+  with_items:
+   - /etc/mailname
+   - /etc/nullmailer/idhost
+  notify: Reload nullmailer
+
+- name: Ensure no conflicting configs exit
+  file: state=absent name='{{item}}'
+  with_items:
+   - /etc/nullmailer/me
+   - /etc/nullmailer/defaultdomain
+   - /etc/nullmailer/defaulthost
+  notify: Reload nullmailer
+
+- name: Set configs for nullmailer
+  copy: dest='/etc/nullmailer/{{item.0}}' content='{{item.1}}'
+        owner=root group=mail mode=0644
+  with_lists:
+  - [ 'adminaddr', '{{nullmailer_adminaddr}}']
+  - [ 'helohost', '{{nullmailer_helohost}}']
+  - [ 'pausetime', '{{nullmailer_pausetime}}']
+  - [ 'sendtimeout', '{{nullmailer_sendtimeout}}']
+  when: item.1
+  notify: Reload nullmailer
+
+- name: Unset configs for nullmailer
+  file: name='/etc/nullmailer/{{item.0}}' state=absent
+  with_lists:
+  - [ 'adminaddr', '{{nullmailer_adminaddr}}']
+  - [ 'helohost', '{{nullmailer_helohost}}']
+  - [ 'pausetime', '{{nullmailer_pausetime}}']
+  - [ 'sendtimeout', '{{nullmailer_sendtimeout}}']
+  when: not item.1
+  notify: Reload nullmailer
+
+- name: "Set nullmailer's remotes"
+  copy: dest='/etc/nullmailer/remotes'
+        content='{{nullmailer_remotes | join("\n") }}'
+        owner=root group=mail mode=0640
+  notify: Reload nullmailer
+
+- name: Start nullmailer
+  service: name=nullmailer state=started enabled=True

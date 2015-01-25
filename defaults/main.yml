@@ -1,0 +1,11 @@
+---
+
+nullmailer_mailname: '{{ ansible_fqdn }}'
+nullmailer_remotes:
+
+nullmailer_adminaddr:
+
+# These are rarely used:
+nullmailer_helohost:
+nullmailer_pausetime:
+nullmailer_sendtimeout:
