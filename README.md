@@ -36,7 +36,7 @@ into your playbook.
 ### Authors and license
 
 `nullmailer` role was written by:
-- 'Hartmut Goebel' | [e-mail](mailto:'h.goebel@crazy-compilers.com) | [website](http://www.crazy-compilers.com)
+- Hartmut Goebel | [e-mail](mailto:'h.goebel@crazy-compilers.com) | [website](http://www.crazy-compilers.com)
 
 License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
 
