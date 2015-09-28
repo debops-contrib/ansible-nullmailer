@@ -45,4 +45,5 @@ ansigenome_info:
      configure, secure, and easily extendable.
 
      `debops.nullmailer` role can be used to install and manage
-     `nullmailer` configuration.
+     `nullmailer` configuration and to set up `nullmailer` as an
+     simple smtpd (via xintd).

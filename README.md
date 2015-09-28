@@ -9,7 +9,8 @@ set of smart relays. It is designed to be simple to configure, secure,
 and easily extendable.
 
 `debops.nullmailer` role can be used to install and manage
-`nullmailer` configuration.
+`nullmailer` configuration and to set up `nullmailer` as an
+simple smtpd (via xintd).
 
 
 ### Installation
