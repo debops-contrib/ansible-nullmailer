@@ -1,6 +1,7 @@
 ---
 
 nullmailer_mailname: '{{ ansible_fqdn }}'
+nullmailer_idhost:   '{{ ansible_fqdn }}'
 nullmailer_remotes:
 
 nullmailer_adminaddr:

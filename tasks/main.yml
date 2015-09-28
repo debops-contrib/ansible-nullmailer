@@ -2,12 +2,14 @@
 - name: Ensure nullmailer is installed
   apt: name=nullmailer state=installed
 
-- name: "Set nullmailer's mailname"
-  copy: dest='{{item}}' content='{{nullmailer_mailname}}'
+- name: Set nullmailer's mailname
+  copy: dest='{{item.0}}' content='{{item.1}}'
         owner=root group=mail mode=0644
-  with_items:
-   - /etc/mailname
-   - /etc/nullmailer/idhost
+  with_lists:
+  # used as host-part for addresses:
+  - [ '/etc/mailname', '{{nullmailer_mailname}}']
+  # used for generating the message-ids:
+  - [ '/etc/nullmailer/idhost', '{{nullmailer_idhost}}']
   notify: Reload nullmailer
 
 - name: Ensure no conflicting configs exit
