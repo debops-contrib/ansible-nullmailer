@@ -51,3 +51,27 @@
 
 - name: Start nullmailer
   service: name=nullmailer state=started enabled=True
+
+
+# Setup a simple smtpd via xinet
+
+- name: Ensure xinetd is installed
+  apt: name=xinetd state=installed
+  when: nullmailer_smtpd
+
+- name: Configure xinetd for nullmailer
+  template: src=nullmailer-smtpd.j2
+            dest=/etc/xinetd.d/nullmailer-smtpd
+            owner=root group=root mode=0644
+  notify: Reload xinetd
+  when: nullmailer_smtpd
+
+- name: Remove configuration of xinetd for nullmailer if nullmailer is disabled
+  file: path=/etc/xinetd.d/nullmailer-smtpd
+        state=absent
+  notify: Reload xinetd
+  when: not nullmailer_smtpd
+
+- name: Start xinetd
+  service: name=xinetd state=started enabled=True
+  when: nullmailer_smtpd

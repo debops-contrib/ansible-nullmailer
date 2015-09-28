@@ -10,3 +10,8 @@ nullmailer_adminaddr:
 nullmailer_helohost:
 nullmailer_pausetime:
 nullmailer_sendtimeout:
+
+# setup smtp via xinetd
+nullmailer_smtpd: True
+nullmailer_smtpd_port: 25
+nullmailer_smtpd_host: localhost
