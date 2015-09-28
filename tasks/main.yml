@@ -16,7 +16,9 @@
   file: state=absent name='{{item}}'
   with_items:
    - /etc/nullmailer/me
+   # domain name appended to allif address is does not contain a dot
    - /etc/nullmailer/defaultdomain
+   # hostname is sender-addresses is missing host-part
    - /etc/nullmailer/defaulthost
   notify: Reload nullmailer
 
